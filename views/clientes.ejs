@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes / Responsáveis - Pequenos Passos</title>
+</head>
+<body>
+    <nav>
+        <strong>Operador:</strong> <%= usuario.nome %> |
+        <a href="/clientes">Clientes</a> |
+        <a href="/grupos">Grupos de Atendimento</a> |
+        <a href="/logout">Sair</a>
+    </nav>
+    <hr>
+
+    <h1>Gestão de Clientes (Responsáveis)</h1>
+
+    <% if (erro) { %>
+        <p style="color: red;"><strong><%= erro %></strong></p>
+    <% } %>
+
+    <h3>Cadastrar Novo Responsável</h3>
+    <form action="/clientes" method="POST">
+        <input type="text" name="nome" placeholder="Nome Completo" required>
+        <input type="text" name="cpf" placeholder="CPF (ex: 222.222.222-22)" required>
+        <input type="email" name="email" placeholder="E-mail">
+        <input type="text" name="telefone" placeholder="Telefone">
+        
+        <select name="grupo_id" required>
+            <option value="">-- Selecione o Grupo --</option>
+            <% grupos.forEach(grupo => { %>
+                <option value="<%= grupo.id %>"><%= grupo.nome %></option>
+            <% }) %>
+        </select>
+
+        <button type="submit">Cadastrar Cliente</button>
+    </form>
+
+    <hr>
+
+    <h3>Buscar Responsável</h3>
+    <form action="/clientes" method="GET">
+        <input type="text" name="busca" value="<%= busca %>" placeholder="Digite parte do nome...">
+        <button type="submit">Pesquisar</button>
+        <% if (busca) { %>
+            <a href="/clientes">Limpar Filtro</a>
+        <% } %>
+    </form>
+
+    <br>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome Completo</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Grupo de Atendimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (clientes.length === 0) { %>
+                <tr>
+                    <td colspan="7">Nenhum cliente encontrado.</td>
+                </tr>
+            <% } %>
+            <% clientes.forEach(cliente => { %>
+                <tr>
+                    <td><%= cliente.id %></td>
+                    <td><%= cliente.nome %></td>
+                    <td><%= cliente.cpf %></td>
+                    <td><%= cliente.email %></td>
+                    <td><%= cliente.telefone %></td>
+                    <td><strong><%= cliente.grupo_nome %></strong></td>
+                    <td>
+                        <a href="/clientes/editar/<%= cliente.id %>">Editar</a>
+                        <form action="/clientes/excluir/<%= cliente.id %>" method="POST" style="display:inline;">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Clínica Pequenos Passos</title>
+</head>
+<body>
+    <h1>Clínica Pediátrica Pequenos Passos</h1>
+    <h2>Acesso ao Sistema</h2>
+
+    <% if (erro) { %>
+        <p style="color: red;"><strong><%= erro %></strong></p>
+    <% } %>
+
+    <form action="/login" method="POST">
+        <div>
+            <label for="cpf">CPF do Operador:</label><br>
+            <input type="text" id="cpf" name="cpf" placeholder="111.111.111-11" required>
+        </div>
+        <br>
+        <div>
+            <label for="senha">Senha:</label><br>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <br>
+        <button type="submit">Entrar</button>
+    </form>
+</body>
+</html>

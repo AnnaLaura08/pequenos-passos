@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Grupo - Pequenos Passos</title>
+</head>
+<body>
+    <h1>Editar Grupo de Atendimento</h1>
+
+    <form action="/grupos/editar/<%= grupo.id %>" method="POST">
+        <div>
+            <label for="nome">Nome do Grupo:</label><br>
+            <input type="text" id="nome" name="nome" value="<%= grupo.nome %>" required>
+        </div>
+        <br>
+        <div>
+            <label for="descricao">Descrição:</label><br>
+            <input type="text" id="descricao" name="descricao" value="<%= grupo.descricao %>">
+        </div>
+        <br>
+        <button type="submit">Salvar Alterações</button>
+        <a href="/grupos">Cancelar</a>
+    </form>
+</body>
+</html>

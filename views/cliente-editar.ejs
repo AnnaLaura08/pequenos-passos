@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cliente - Pequenos Passos</title>
+</head>
+<body>
+    <h1>Editar Cliente / Responsável</h1>
+
+    <form action="/clientes/editar/<%= cliente.id %>" method="POST">
+        <div>
+            <label for="nome">Nome Completo:</label><br>
+            <input type="text" id="nome" name="nome" value="<%= cliente.nome %>" required>
+        </div>
+        <br>
+        <div>
+            <label for="cpf">CPF:</label><br>
+            <input type="text" id="cpf" name="cpf" value="<%= cliente.cpf %>" required>
+        </div>
+        <br>
+        <div>
+            <label for="email">E-mail:</label><br>
+            <input type="email" id="email" name="email" value="<%= cliente.email %>">
+        </div>
+        <br>
+        <div>
+            <label for="telefone">Telefone:</label><br>
+            <input type="text" id="telefone" name="telefone" value="<%= cliente.telefone %>">
+        </div>
+        <br>
+        <div>
+            <label for="grupo_id">Grupo de Atendimento:</label><br>
+            <select id="grupo_id" name="grupo_id" required>
+                <% grupos.forEach(grupo => { %>
+                    <option value="<%= grupo.id %>" <%= grupo.id === cliente.grupo_id ? 'selected' : '' %>>
+                        <%= grupo.nome %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <br>
+        <button type="submit">Salvar Alterações</button>
+        <a href="/clientes">Cancelar</a>
+    </form>
+</body>
+</html>

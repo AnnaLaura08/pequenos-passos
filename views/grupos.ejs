@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos de Atendimento - Pequenos Passos</title>
+</head>
+<body>
+    <nav>
+        <strong>Operador:</strong> <%= usuario.nome %> |
+        <a href="/clientes">Clientes</a> |
+        <a href="/grupos">Grupos de Atendimento</a> |
+        <a href="/logout">Sair</a>
+    </nav>
+    <hr>
+
+    <h1>Grupos de Atendimento</h1>
+
+    <% if (erro) { %>
+        <p style="color: red;"><strong><%= erro %></strong></p>
+    <% } %>
+
+    <h3>Novo Grupo</h3>
+    <form action="/grupos" method="POST">
+        <input type="text" name="nome" placeholder="Nome do Grupo (ex: Convênio Ouro)" required>
+        <input type="text" name="descricao" placeholder="Descrição do atendimento">
+        <button type="submit">Cadastrar Grupo</button>
+    </form>
+
+    <hr>
+
+    <h3>Grupos Cadastrados</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome do Grupo</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% grupos.forEach(grupo => { %>
+                <tr>
+                    <td><%= grupo.id %></td>
+                    <td><%= grupo.nome %></td>
+                    <td><%= grupo.descricao %></td>
+                    <td>
+                        <a href="/grupos/editar/<%= grupo.id %>">Editar</a>
+                        <form action="/grupos/excluir/<%= grupo.id %>" method="POST" style="display:inline;">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
